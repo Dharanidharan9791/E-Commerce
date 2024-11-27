@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
 import Papa from 'papaparse';
 import './App.css';
 import axios from 'axios';
+import LandingPage from './pages/LandinPage'; 
+import Index from './layouts/Index';
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -46,39 +46,9 @@ function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <>
-
-
-      {/* Display the users data */}
-      <section>
-        <h2>Users</h2>
-        <ul>
-          {users.map((user, index) => (
-            <li key={index}>{user.UserID} - {user.Username} - {user.Password}</li>
-          ))}
-        </ul>
-      </section>
-
-      <section>
-        <h2>Products</h2>
-        <ul>
-          {products.map((product, index) => (
-            <li key={index}> {product.ProductName} {product.Category} {product.Price} </li>
-          ))}
-        </ul>
-      </section>
-
-      <section>
-        <h2>Purchase History</h2>
-        <ul>
-          {history.map((history, index) => (
-            <li key={index}>
-            {history.UserID}  {history.ProductID}
-            </li>
-          ))}
-        </ul>
-      </section>
-    </>
+  <Index>
+  <LandingPage onClick={() => console.log('clicked')}/>
+  </Index>
   );
 }
 
