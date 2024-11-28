@@ -23,7 +23,7 @@
 
 .categoriesBtn {
     width: -webkit-fill-available;
-    ;
+
 }
 
 .searchInput {
@@ -33,4 +33,17 @@
     margin-right: 100px;
     padding-right: 50px;
 
+}
+.welcomeText{
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    width:  -webkit-fill-available;
+}
+.primaryText {
+    color: var(--theme-color);
+}
+.cursorPointer{
+    cursor: pointer;
 }
