@@ -28,20 +28,20 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    // Fetch user data from CSV
-    const loadData = async () => {
-      const userlist = await fetchDataFromCSV('/src/data/users.csv');
-      const productslist = await fetchDataFromCSV('/src/data/products.csv')
-      const historylist = await fetchDataFromCSV('/src/data/purchase_history.csv')
-      console.log({ userlist, productslist, historylist });
-      setUsers(userlist);  // Set fetched data to state
-      setProducts(productslist)
-      setHistory(historylist)
-    };
+  // useEffect(() => {
+  //   // Fetch user data from CSV
+  //   const loadData = async () => {
+  //     const userlist = await fetchDataFromCSV('/src/data/users.csv');
+  //     const productslist = await fetchDataFromCSV('/src/data/products.csv')
+  //     const historylist = await fetchDataFromCSV('/src/data/purchase_history.csv')
+  //     console.log({ userlist, productslist, historylist });
+  //     setUsers(userlist);  // Set fetched data to state
+  //     setProducts(productslist)
+  //     setHistory(historylist)
+  //   };
 
-    loadData();
-  }, []);  // Only run on mount
+  //   loadData();
+  // }, []);  // Only run on mount
 
   const [count, setCount] = useState(0);
 
