@@ -1,0 +1,36 @@
+:root {
+    --theme-color: #782b89
+}
+
+.buttonFill {
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--theme-color);
+    color: #fff;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+
+.logoText {
+    white-space: nowrap;
+    color: var(--theme-color);
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.categoriesBtn {
+    width: -webkit-fill-available;
+    ;
+}
+
+.searchInput {
+    all: unset;
+    width: 300px !important;
+    border-radius: 50px !important;
+    margin-right: 100px;
+    padding-right: 50px;
+
+}

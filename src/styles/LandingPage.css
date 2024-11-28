@@ -1,0 +1,13 @@
+.banner{
+    background-color: antiquewhite;
+    height: 200px;
+}
+
+.landingItem{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(209, 209, 209);
+    height: 400px;
+    min-width: 300px ;
+}

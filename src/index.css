@@ -6,15 +6,3 @@
   font-style: normal;
 }
 
-header{
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem;
-}
-
-header > button {
-  all: unset;
-  padding: 0.5rem 1rem;
-  background-color: green;
-  color: white;
-}

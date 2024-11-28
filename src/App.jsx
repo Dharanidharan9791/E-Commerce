@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Papa from 'papaparse';
 import './App.css';
 import axios from 'axios';
-import LandingPage from './pages/LandinPage'; 
+import LandingPage from './pages/LandinPage';
 import Index from './layouts/Index';
 
 function App() {
@@ -34,7 +34,7 @@ function App() {
       const userlist = await fetchDataFromCSV('/src/data/users.csv');
       const productslist = await fetchDataFromCSV('/src/data/products.csv')
       const historylist = await fetchDataFromCSV('/src/data/purchase_history.csv')
-      console.log({userlist,productslist,historylist});
+      console.log({ userlist, productslist, historylist });
       setUsers(userlist);  // Set fetched data to state
       setProducts(productslist)
       setHistory(historylist)
@@ -46,9 +46,12 @@ function App() {
   const [count, setCount] = useState(0);
 
   return (
-  <Index>
-  <LandingPage onClick={() => console.log('clicked')}/>
-  </Index>
+    <div className='app px-5 py-4'>
+      <Index>
+        <LandingPage onClick={() => console.log('clicked')} />
+      </Index>
+    </div>
+
   );
 }
 
