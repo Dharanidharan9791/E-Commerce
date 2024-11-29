@@ -1,4 +1,4 @@
-import { parseCSVData } from "../Common/ParseCSVData"
+import { parseCSVData } from "../utils/ParseCSVData"
 
 export const getPurchaseHistoryApi = async() => {
     const purchaselist = await parseCSVData('/src/data/purchase_history.csv')

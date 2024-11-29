@@ -5,7 +5,5 @@ export const getPurchaseHistory = async (userid) => {
     const history = response.filter(
         (data) => data.UserID.toLowerCase() === userid.toLowerCase()
     );
-    console.log('response', { response, history })
-
-    return response
+    return history
 }

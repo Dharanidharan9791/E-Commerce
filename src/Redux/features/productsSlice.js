@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const productsSlice = createSlice({
-    name:"purchases",
-    initialState:{products:[]},
+    name:"products",
+    initialState:[],
     reducers:{
         setProducts:(state,action)=>action.payload
     }

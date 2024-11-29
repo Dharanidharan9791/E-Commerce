@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import "../styles/Header.css"
-import Logo from "../assets/images/Logo.png"
-import Cart from "../assets/images/add-to-cart.png"
+import "../../styles/Header.css"
+import Logo from "../../assets/images/Logo.png"
+import Cart from "../../assets/images/add-to-cart.png"
 import { Container, Form } from 'react-bootstrap'
 import { Modal } from 'react-bootstrap'
-import { authenticateUser } from '../interface/Login'
-import { useGetProducts } from '../hooks/useGetProducts'
+import { authenticateUser } from '../../interface/Login'
+import { useGetProducts } from '../../hooks/useGetProducts'
 import { useDispatch, useSelector } from 'react-redux'
-import { setUsers } from '../Redux/features/userSlice'
-import { setPurchases } from '../Redux/features/purchaseSlice'
-import { getPurchaseHistory } from '../interface/PurchaseHistory'
-import userLogo from "../assets/images/user.svg"
+import { setUsers } from '../../Redux/features/userSlice'
+import { setPurchases } from '../../Redux/features/purchaseSlice'
+import { getPurchaseHistory } from '../../interface/PurchaseHistory'
+import userLogo from "../../assets/images/user.svg"
 const Header = () => {
   const [showModal, setShowModal] = useState(false)
   const [username, setUserName] = useState("")
@@ -26,7 +26,7 @@ const Header = () => {
   const handleLogin = async () => {
     const response = await authenticateUser(username, password)
     if (response.flag) {
-      const purchaseHistory =  await getPurchaseHistory(response.userDetails.userID)
+      const purchaseHistory = await getPurchaseHistory(response.userDetails.userID)
       dispatch(setUsers(response.userDetails))
       dispatch(setPurchases(purchaseHistory))
       setErrorMessage("Successfully Loggedin")
@@ -37,7 +37,7 @@ const Header = () => {
           setUserName("")
           setPassword("")
         }, 500)
-        
+
     }
     setErrorMessage(response.message)
     console.log("response", response)
@@ -61,7 +61,7 @@ const Header = () => {
               <div className='d-flex gap-5 pe-5'>
                 <div className='d-flex align-items-center gap-2'>
                   <img src={userLogo} height={32} width={32} alt="user" />
-                  <span className='primaryText fw-semibold fs-5 cursorPointer'>Account</span>
+                  <span className='primaryText fw-semibold fs-5 cursorPointer'>{user.userName}</span>
                 </div>
                 <div className='cursorPointer fs-5'>
                   Orders
