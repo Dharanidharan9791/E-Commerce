@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import "../styles/LandingPage.css";
-import { Row,Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { setOrders } from '../Redux/features/ordersSlice';
 import { LandingCards } from '../Components/common/LandingCards';
 
-const LandingPage = ({ ...props }) => {
+const LandingPage = () => {
 
   const purchaseList = useSelector((state) => state.purchase)
   const productsList = useSelector((state) => state.products)
@@ -18,24 +18,31 @@ const LandingPage = ({ ...props }) => {
     if (user.isLoggedIn) {
       const purchasedProductIds = purchaseList.map((purchase) => purchase.ProductID);
 
-      const purchasedProducts = productsList.filter((product) =>
-        purchasedProductIds.includes(product.ProductID)
-      ).sort((a, b) => a.ProductName.localeCompare(b.ProductName));
+      const purchased = productsList.filter((product) => purchasedProductIds.includes(product.ProductID))
+      console.log("purchaseList", purchaseList, purchased)
 
-      const notPurchasedProducts = productsList.filter((product) =>
-        !purchasedProductIds.includes(product.ProductID)
-      ).sort((a, b) => a.ProductName.localeCompare(b.ProductName));
+      const purchasedCategories = new Set(purchased.map((item) => item.Category));
+      console.log('purchasedCategories', purchasedCategories)
+      const purchasedProducts = productsList
+        .filter((product) => purchasedCategories.has(product.Category))
+        .sort((a, b) => a.ProductName.localeCompare(b.ProductName));
 
-      console.log('products', { purchasedProducts, notPurchasedProducts })
-      dispatch(setOrders(purchasedProducts))
-      setProducts({ notPurchased: notPurchasedProducts, purchased: purchasedProducts })
+      const notPurchasedProducts = productsList
+        .filter((product) => !purchasedCategories.has(product.Category))
+        .sort((a, b) => a.ProductName.localeCompare(b.ProductName));
+
+      console.log('products', { purchasedProducts, notPurchasedProducts });
+
+      dispatch(setOrders(purchasedProducts));
+      setProducts({ notPurchased: notPurchasedProducts, purchased: purchasedProducts });
+    } else {
+      const sortedProducts = [...productsList].sort((a, b) =>
+        a.ProductName.localeCompare(b.ProductName)
+      );
+      setProducts({ notPurchased: sortedProducts, purchased: [] });
     }
-    else {
-      // dispatch(setOrders(productsList))
+  }, [user, productsList, purchaseList]);
 
-      setProducts({ notPurchased: productsList, purchased: [] })
-    }
-  }, [user, productsList])
 
   return (
     <div className='wrapper mt-3 p-3'>
@@ -46,12 +53,12 @@ const LandingPage = ({ ...props }) => {
           <button className='buttonFill'>Grab Now</button>
         </Col>
         <Col className=' d-flex  align-items-center justify-content-center'>
-        <img src="https://via.placeholder.com/150" alt="img" />
+          <img src="https://via.placeholder.com/150" alt="img" />
         </Col>
       </Row>
       <main className='landingBody d-flex flex-column justify-content-center'>
         <section className='mt-2 mb-2'>
-          <h4 className='mt-2 mb-4'>Check it out!</h4>
+          <h4 className='mt-2 mb-4'>Explore New!</h4>
           <div className='sectionBody flex-wrap d-flex align-items-center justify-content-start gap-4'>
             {
               products.notPurchased.length > 0 &&
@@ -68,7 +75,7 @@ const LandingPage = ({ ...props }) => {
           {
             products.purchased.length > 0 &&
             <>
-              <h4 className='mt-2 mb-4'>Buy Again!</h4>
+              <h4 className='mt-2 mb-4'>What you love!</h4>
               <div className='sectionBody flex-wrap d-flex align-items-center justify-content-start gap-4'>
 
                 {
