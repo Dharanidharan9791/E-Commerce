@@ -33,7 +33,7 @@ const LandingPage = () => {
 
       console.log('products', { purchasedProducts, notPurchasedProducts });
 
-      dispatch(setOrders(purchasedProducts));
+      dispatch(setOrders(purchased));
       setProducts({ notPurchased: notPurchasedProducts, purchased: purchasedProducts });
     } else {
       const sortedProducts = [...productsList].sort((a, b) =>

@@ -1,4 +1,4 @@
-# E-Commerce Platform
+# eA-Zy - everything A to Z for you
 
 This is an e-commerce web application built with React, Redux Toolkit, and CSV file importing. The project allows users to browse products, add them to the cart, and complete purchases. Product data is imported via CSV files, and the application uses Redux Toolkit for state management.
 
@@ -68,4 +68,6 @@ This is an e-commerce web application built with React, Redux Toolkit, and CSV f
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/e-commerce.git
+   git clone https://github.com/Dharanidharan9791/E-Commerce.git
+2. View live in github pages:
+   https://dharanidharan9791.github.io/E-Commerce/
