@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "../../styles/Header.css"
 import Logo from "../../assets/images/Logo.png"
 import Cart from "../../assets/images/add-to-cart.png"
-import { Container, Form } from 'react-bootstrap'
+import { Container, Form, OverlayTrigger, Popover, Nav, Navbar,NavbarText } from 'react-bootstrap'
 import { Modal } from 'react-bootstrap'
 import { authenticateUser } from '../../interface/Login'
 import { useGetProducts } from '../../hooks/useGetProducts'
@@ -11,17 +11,36 @@ import { setUsers } from '../../Redux/features/userSlice'
 import { setPurchases } from '../../Redux/features/purchaseSlice'
 import { getPurchaseHistory } from '../../interface/PurchaseHistory'
 import userLogo from "../../assets/images/user.svg"
+import LandingOffCanvas from '../common/LandingOffCanvas'
+
 const Header = () => {
   const [showModal, setShowModal] = useState(false)
   const [username, setUserName] = useState("")
   const [password, setPassword] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
-  const dispatch = useDispatch()
-
+  const [canvasType, setCanvasType] = useState("Orders")
+  const [showOffCanvas, setOffCanvas] = useState(false)
+  const [expanded, setExpanded] = useState(false); // State to control Navbar collapse
   const user = useSelector((state) => state.user)
-  useEffect(() => {
-  }, [])
+
+  const dispatch = useDispatch()
   useGetProducts()
+
+  const handleClose = () => setOffCanvas(false);
+
+  const handleShow = (type) => {
+    setOffCanvas(true);
+    setCanvasType(type)
+  }
+
+  const popover = (
+    <Popover id="popover-basic">
+      <Popover.Body>
+        <div className='cursorPointer logoutButton' onClick={() => window.location.reload()}>Logout</div>
+      </Popover.Body>
+    </Popover>
+  );
+
 
   const handleLogin = async () => {
     const response = await authenticateUser(username, password)
@@ -45,38 +64,42 @@ const Header = () => {
 
   return (
     <>
-      <header className='d-flex align-items-center justify-content-between '>
-        <div className='d-flex  gap-3'>
-          <img src={Logo} height={48} width={48} alt='logo' />
-          <div className='d-flex align-items-center logoText pe-5'>eA-Zy</div>
-        </div>
-        {/* <div className='d-flex align-items-center ps-5 categoriesBtn'>Categories</div>
-
-        <div className='d-flex align-items-center'>
-          <Form.Control className='searchInput'></Form.Control>
-        </div> */}
-        <div className='d-flex  gap-4 d-flex align-items-center'>
-          {
-            user.isLoggedIn ?
-              <div className='d-flex gap-5 pe-5'>
-                <div className='d-flex align-items-center gap-2'>
-                  <img src={userLogo} height={32} width={32} alt="user" />
-                  <span className='primaryText fw-semibold fs-5 cursorPointer'>{user.userName}</span>
+     
+     <Navbar expand="lg"  expanded={expanded} onToggle={setExpanded}>
+        <Container className='p-0' fluid>
+          <Navbar.Brand className="d-flex gap-3 align-items-center">
+            <img src={Logo} height={48} width={48} alt="logo" />
+            <span className="logoText">eA-Zy</span>
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(!expanded)} />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="ms-auto align-items-center gap-4">
+              {user.isLoggedIn ? (
+                <div className="d-flex gap-4 align-items-center">
+                  <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
+                    <div className="d-flex align-items-center gap-2">
+                      <img src={userLogo} height={32} width={32} alt="user" />
+                      <span className="primaryText fw-semibold fs-5 cursorPointer">{user.userName}</span>
+                    </div>
+                  </OverlayTrigger>
+                  <div className="cursorPointer fs-5" onClick={() => handleShow("Orders")}>
+                    Orders
+                  </div>
                 </div>
-                <div className='cursorPointer fs-5'>
-                  Orders
-                </div>
+              ) : (
+                <button className="buttonFill" onClick={() => setShowModal(true)}>
+                  Login
+                </button>
+              )}
+              <div className="d-flex align-items-center gap-2 ms-3 cursorPointer" onClick={() => handleShow("Cart")}>
+                <img src={Cart} height={32} width={32} alt="Cart" />
+                <span>Cart</span>
               </div>
-              :
-              <button className='buttonFill' onClick={() => setShowModal(true)}>Login</button>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
 
-          }
-          <div className='d-flex align-items-center gap-2'>
-            <img src={Cart} height={32} width={32} alt="" />
-            <div>Cart</div>
-          </div>
-        </div>
-      </header>
       <Modal show={showModal} size='lg' onHide={() => setShowModal(false)} backdrop="static" centered>
         <Modal.Header closeButton>
           <div className='welcomeText'>Welcome Back!</div>
@@ -105,6 +128,7 @@ const Header = () => {
 
         </Modal.Footer>
       </Modal>
+      <LandingOffCanvas show={showOffCanvas} onClose={handleClose} type={canvasType} />
     </>
 
   )

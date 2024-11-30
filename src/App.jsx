@@ -4,7 +4,7 @@ import Index from './Components/layouts/Index';
 
 function App() {
   return (
-    <div className='app px-5 py-4'>
+    <div className='app px-4 py-4'>
       <Index>
         <LandingPage/>
       </Index>
